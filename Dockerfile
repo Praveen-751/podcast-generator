@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     git
 
-RUN pip install PyYAML
+ENV PIP_CACHE_DIR /pip_cache
+
+RUN pip3 install --cache-dir $PIP_CACHE_DIR PyYAML 
 
 COPY feed.py /usr/bin/feed.py
 
