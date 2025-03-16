@@ -1,20 +1,26 @@
 FROM ubuntu:latest
 
-# Install Python and venv
 RUN apt-get update && apt-get install -y \
     python3.10 \
+    python3-pip \
     python3-venv \
     git
 
-# Create virtual environment
-RUN python3.10 -m venv /venv
+# Check where Python 3.10 is installed
+RUN which python3.10 || true
+RUN python3.10 --version || true
 
-# Activate virtual environment and install dependencies
-RUN . /venv/bin/activate && pip install PyYAML
+# Create a virtual environment
+RUN python3.10 -m venv /opt/venv
 
-# Copy your scripts
+# Activate virtual environment
+ENV PATH="/opt/venv/bin:$PATH"
+
+RUN pip install PyYAML
+
 COPY feed.py /usr/bin/feed.py
-COPY entrypoint.sh /entrypoint.sh
 
-# Set entrypoint
-ENTRYPOINT [ "/entrypoint.sh" ]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
