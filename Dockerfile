@@ -5,9 +5,9 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     git
 
-ENV PIP_CACHE_DIR /pip_cache
-
-RUN pip3 install --cache-dir $PIP_CACHE_DIR PyYAML 
+RUN pip3 --version
+RUN pip3 install pandas
+RUN pip3 install PyYAML 
 
 COPY feed.py /usr/bin/feed.py
 
