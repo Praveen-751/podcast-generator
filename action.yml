@@ -1,4 +1,4 @@
-name: "Podcast Generator v1.0"
+name: "Podcast Generator using YAML"
 author: "Praveen Kumar Chinnamshetty"
 description: "Generates a feed for podcast from a YAML file"
 runs:
